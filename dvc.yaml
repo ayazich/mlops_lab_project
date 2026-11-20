@@ -1,0 +1,27 @@
+stages:
+  prepare:
+    cmd: python -m src.prepare
+    deps:
+      - src/prepare.py
+      - src/schema.py
+      - data/student-por.csv
+    params:
+      - data
+    outs:
+      - data/train.csv
+      - data/test.csv
+  train:
+    cmd: python -m src.train
+    deps:
+      - src/train.py
+      - src/schema.py
+      - data/train.csv
+      - data/test.csv
+    params:
+      - model
+    outs:
+      - models/model.joblib
+      - reports/model_report.txt
+    metrics:
+      - metrics.json:
+          cache: false
