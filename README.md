@@ -2,7 +2,7 @@
 
 Учебный ML-проект: по анкете ученика сервис предсказывает итоговую оценку `G3` по португальскому языку. Пользователь заполняет форму в Streamlit, интерфейс отправляет JSON в FastAPI, API вызывает сохранённую модель и возвращает оценку.
 
-Исследование и сравнение моделей лежат в `notebooks/EDA_hw_Ayaz.ipynb` и `notebooks/hw_Ayaz_models.ipynb`. Ноутбуки не заменяют скрипты обучения.
+Исследование и сравнение моделей лежат в `notebooks/EDA_hw_Ayaz.ipynb` и `notebooks/hw_Ayaz_models.ipynb`
 
 ## Задача и данные
 
@@ -16,8 +16,6 @@
 
 - числовые: `age`, `Medu`, `Fedu`, `traveltime`, `studytime`, `failures`, `famrel`, `freetime`, `goout`, `Dalc`, `Walc`, `health`, `absences`;
 - категориальные: `school`, `sex`, `address`, `famsize`, `Pstatus`, `Mjob`, `Fjob`, `reason`, `guardian`, `schoolsup`, `famsup`, `paid`, `activities`, `nursery`, `higher`, `internet`, `romantic`.
-
-По EDA сильнее всего с низкой `G3` связан `failures`. Слабее, но значимо, связаны `studytime`, образование матери `Medu` и намерение получать высшее образование `higher`. `absences` статистически значим, но слаб. Категории кодируются внутри пайплайна (`OneHotEncoder`), числовые признаки масштабируются (`StandardScaler`).
 
 ## Качество
 
@@ -51,7 +49,7 @@ dvc.yaml                 этапы prepare и train
 
 ## Установка
 
-Нужны Git и Python 3.11 (с pip подойдёт и 3.12). Docker нужен только для запуска в контейнерах. `uv` — как в шаблоне курса; без него достаточно pip.
+Нужны Git и Python 3.11. Docker нужен только для запуска в контейнерах.
 
 ```bash
 python3.11 -m venv .venv
@@ -76,7 +74,7 @@ python -m src.prepare
 python -m src.train
 ```
 
-Либо одной цепочкой, если установлен DVC (`pip install 'dvc>=3,<5'` или группа `dev` в uv). Если Git и DVC в каталоге ещё не инициализированы:
+Либо одной цепочкой, если установлен DVC. Если Git и DVC в каталоге ещё не инициализированы:
 
 ```bash
 git init
@@ -113,7 +111,7 @@ streamlit run ui/app.py
 - проверка модели: <http://localhost:8000/health>
 - форма: <http://localhost:8501>
 
-Через Docker Compose (модель уже должна лежать в `models/`, она копируется в образ API при сборке):
+Через Docker Compose:
 
 ```bash
 docker compose up --build
